@@ -1,6 +1,5 @@
 var readline= require("readline-sync")
-var str = readline.question("Entrez une phrase :")
-var chars = str.split('')
+var chars = readline.question("Entrez une phrase :").split('')
 var temp = 0
 
 for (var index = 0; index < chars.length; index++) {
@@ -16,5 +15,3 @@ for (var index = 0; index < chars.length; index++) {
     }
 }
     console.log (chars.join(''));
-
-    
