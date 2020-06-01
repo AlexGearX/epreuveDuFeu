@@ -7,18 +7,19 @@ function Y(c1ByLine,c2ByLine) {
     var tmp = 1
     var z = 0
 
-    for (var i = 0; i < c2ByLine.length-1; i++) { //5
-        //console.log ("i");
-        for (var j = 0; j < c2ByLine[i].length; j++) { //6
-            //console.log ("j");
+    for (var i = 0; i < c2ByLine[i].length-1; i++) { //6
+        console.log ("i");
+        for (var j = 0; j < c2ByLine.length; j++) { //5
+            console.log ("j");
             if (c2ByLine[i][j] == c1ByLine[z][0]) {
-                z += 1
-                for (var k = 0; k < c2ByLine[i].length-1; k++) {
-                    //console.log ("k");
+                for (var k = 0; k < c1ByLine[0].length-1; k++) { // 3
+                    console.log ("k");                 
                     if ( c2ByLine[i][j+k] == c1ByLine[z][k] ) {
                         tmp += 1
-                        //console.log (tmp);
-                        if (tmp == c1ByLine[0].length) {
+                        console.log (tmp);
+                        z += 1
+                        console.log ("z" + z);
+                        if (tmp == c1ByLine[i].length) {
                             return i
                         }
                     } else {
