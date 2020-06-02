@@ -1,9 +1,9 @@
 var readline= require("readline-sync");
-var chiffreSaisi = readline.questionInt("Nombre de marches ? ");
-var diese = "\#"
+var number = readline.questionInt("Nombre de marches ? ");
+var hash = "\#"
 var space = " "
 
-for (let index = 1; index < chiffreSaisi; index++) {
-    console.log (space.repeat(chiffreSaisi-index) + diese.repeat(index));
+for (let index = 1; index < number; index++) {
+    console.log (space.repeat(number-index) + hash.repeat(index));
 }
 
