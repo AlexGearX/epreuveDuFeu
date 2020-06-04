@@ -1,26 +1,64 @@
+// 1. get the sudoku from the .txt file and remove | , + , - and replace _ by 0
 var fs = require("fs");
-var sudoku = fs.readFileSync('s.txt').toString().split('\n');    //recupere c1.txt par ligne sous forme de tableau c1Byline[Ligne][Car]
+var file = fs.readFileSync('s.txt').toString().replace(/[+\-|]/g, '').split("_").join("0").split('\n');    
 
-var arrayX = []
+// 2. Transform array string to array number
 
-
-// FAIRE FONCTION POUR REMPLACER _ PAR 0
-
-for (let i = 0; i <= 10; i++) {
-    for (let j = 0; j <= 10; j++) {
-        if (sudoku[i][j] === "_") {
-            sudoku = Object.assign([],sudoku[i], {[j]:"0"})  
-        }                   
-    }          
+var sudoku = []
+for (var i = 0; i < file.length; i++) {
+    var sudokuInt = []
+    if (file[i] !== '') {
+      for (var j = 0; j <= 8; j++) {   
+         sudokuInt.push(parseInt(file[i][j]))  
+        }
+        sudoku.push(sudokuInt)
+    }   
+}
+// 3. test ligne colonne carré fonction recurcive ?
+function checkLine(sudoku,line) {
+    var tmp = 0
+    for (let i = 0; i < sudoku.length; i++) {
+        tmp += sudoku[line][i]     
+    }
+    if (tmp = 45) {
+        return true
+    } else {
+        if (tmp < 36) {
+            checkColumn(sudoku,line)
+            checkSquare(sudoku,line)
+            checkLine(sudoku,line)
+        } else {
+            tmp = 45-tmp
+            for (let j = 0; j < sudoku.length; j++) {
+                 sudoku[line].replace(0, tmp)
+            }
+        }
+    }
+ }
+function checkColumn(sudoku, column) {
+    var tmp = 0
+    for (let i = 0; i < sudoku.length; i++) {
+        tmp += sudoku[column][i]     
+    }
+    if (tmp = 45) {
+        return true
+    } else {
+        if (tmp < 36) {           
+            checkSquare(sudoku,column)
+            checkLine(sudoku,column)
+            checkColumn(sudoku,column)
+        } else {
+            tmp = 45-tmp
+            for (let j = 0; j < sudoku.length; j++) {
+                 sudoku[j][column].replace(0, tmp)
+            }
+        }
+    }
+}
+function checkSquare(sudoku, line) {
+    var tmp = 0
 }
 
-// FONCTION X
-for (let xDown = 0; xDown <= 10; xDown++) {
-    for (let x = 0; x <= 10; x++) {
-        if (parseInt(sudoku[xDown][x])) {
-           arrayX.push(sudoku[xDown][x]) 
-        }                      
-    }          
-}
-console.log (arrayX.join());
-//console.log (sudoku);
+
+
+console.log(sudoku)
