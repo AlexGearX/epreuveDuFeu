@@ -14,51 +14,53 @@ for (var i = 0; i < file.length; i++) {
         sudoku.push(sudokuInt)
     }   
 }
-// 3. test ligne colonne carré fonction recurcive ?
-function checkLine(sudoku,line) {
-    var tmp = 0
-    for (let i = 0; i < sudoku.length; i++) {
-        tmp += sudoku[line][i]     
-    }
-    if (tmp = 45) {
-        return true
-    } else {
-        if (tmp < 36) {
-            checkColumn(sudoku,line)
-            checkSquare(sudoku,line)
-            checkLine(sudoku,line)
-        } else {
-            tmp = 45-tmp
-            for (let j = 0; j < sudoku.length; j++) {
-                 sudoku[line].replace(0, tmp)
-            }
+// 3. solution
+
+
+function solution(sudoku){
+
+    var alreadyExist = {}
+    var nbObject = []
+    var empty = 0
+    var empties = 81
+    var count = 0;
+    while (empties && count < 20) {
+        empties = 0;
+        for (var line = 0; line < sudoku.length; line++) {
+            for (var column = 0; column < sudoku.length; column++) {
+                if (sudoku[line][column] === 0) {
+                    alreadyExist = {};
+                    for (var check = 0; check < sudoku.length; check++){
+                            if (sudoku[line][check] > 0) {
+                                alreadyExist[sudoku[line][check]] = true;
+                            }
+                            if (sudoku[check][column] > 0) {
+                                alreadyExist[sudoku[check][column]] = true;
+                            }
+                    }
+                    for (var lineSquare = Math.floor(line / 3) * 3; lineSquare < Math.floor(line / 3) * 3 + 3; lineSquare++){
+                        for (var columnSquare = Math.floor(column / 3) * 3; columnSquare < Math.floor(column / 3) * 3 + 3; columnSquare++){
+                            if (sudoku[lineSquare][columnSquare]) {
+                                    alreadyExist[sudoku[lineSquare][columnSquare]] = true;
+                            }
+                        }
+                    }                       
+                    nbObject = Object.keys(alreadyExist)
+                    if (nbObject.length == 8) {
+                        for (var i = 1; i <= 9; i++) {
+                            if (nbObject.indexOf('' + i) < 0) {
+                                    sudoku[line][column] = i;
+                            }                               
+                        }
+                    }else{
+                        empties += 1;
+                    }
+                }
+            }        
         }
+        count += 1;
     }
- }
-function checkColumn(sudoku, column) {
-    var tmp = 0
-    for (let i = 0; i < sudoku.length; i++) {
-        tmp += sudoku[column][i]     
-    }
-    if (tmp = 45) {
-        return true
-    } else {
-        if (tmp < 36) {           
-            checkSquare(sudoku,column)
-            checkLine(sudoku,column)
-            checkColumn(sudoku,column)
-        } else {
-            tmp = 45-tmp
-            for (let j = 0; j < sudoku.length; j++) {
-                 sudoku[j][column].replace(0, tmp)
-            }
-        }
-    }
-}
-function checkSquare(sudoku, line) {
-    var tmp = 0
+    return sudoku;
 }
 
-
-
-console.log(sudoku)
+console.log (solution(sudoku));
