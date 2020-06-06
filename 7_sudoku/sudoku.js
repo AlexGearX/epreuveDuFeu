@@ -21,12 +21,11 @@ function solution(sudoku){
 
     var alreadyExist = {}
     var nbObject = []
-    var empty = 0
-    var empties = 81
-    var count = 0
+    var empty = 20
+    var tmp = 0
 
-    while (empties && count < 20) {
-        empties = 0;
+    while (empty && tmp < 20) {
+        empty = 0;
         for (var line = 0; line < sudoku.length; line++) {
             for (var column = 0; column < sudoku.length; column++) {
                 if (sudoku[line][column] === 0) {
@@ -57,12 +56,12 @@ function solution(sudoku){
                             }                               
                         }
                     }else{
-                        empties += 1;
+                        empty += 1;
                     }
                 }
             }        
         }
-        count += 1;
+        tmp += 1;
     }
     return sudoku;
 }
@@ -99,7 +98,6 @@ for (let j = 3; j < 8; j+=4) {
     }    
 }
 
-solution(finalSudoku)
 for (let index = 0; index < finalSudoku.length; index++) {
 console.log (finalSudoku[index].join(' '));
 
