@@ -23,13 +23,15 @@ function solution(sudoku){
     var nbObject = []
     var empty = 0
     var empties = 81
-    var count = 0;
+    var count = 0
+
     while (empties && count < 20) {
         empties = 0;
         for (var line = 0; line < sudoku.length; line++) {
             for (var column = 0; column < sudoku.length; column++) {
                 if (sudoku[line][column] === 0) {
                     alreadyExist = {};
+
                     for (var check = 0; check < sudoku.length; check++){
                             if (sudoku[line][check] > 0) {
                                 alreadyExist[sudoku[line][check]] = true;
@@ -38,17 +40,19 @@ function solution(sudoku){
                                 alreadyExist[sudoku[check][column]] = true;
                             }
                     }
+
                     for (var lineSquare = Math.floor(line / 3) * 3; lineSquare < Math.floor(line / 3) * 3 + 3; lineSquare++){
                         for (var columnSquare = Math.floor(column / 3) * 3; columnSquare < Math.floor(column / 3) * 3 + 3; columnSquare++){
                             if (sudoku[lineSquare][columnSquare]) {
                                     alreadyExist[sudoku[lineSquare][columnSquare]] = true;
                             }
                         }
-                    }                       
+                    }    
+
                     nbObject = Object.keys(alreadyExist)
-                    if (nbObject.length == 8) {
+                    if (nbObject.length === 8) {
                         for (var i = 1; i <= 9; i++) {
-                            if (nbObject.indexOf('' + i) < 0) {
+                            if (nbObject.indexOf(i.toString()) < 0) {
                                     sudoku[line][column] = i;
                             }                               
                         }
@@ -63,4 +67,40 @@ function solution(sudoku){
     return sudoku;
 }
 
-console.log (solution(sudoku));
+solution(sudoku)
+
+// 4. back to original design
+var finalSudoku = []
+for (var l = 0; l <= 8; l++) { 
+    var sudokuStr = []
+    for (var k = 0; k <= 8; k++) {   
+        sudokuStr.push(sudoku[l][k].toString())
+    }
+    finalSudoku.push(sudokuStr)
+}
+
+
+for (let index = 0; index < 9; index++) {
+    finalSudoku[index].splice(3, 0, [])
+    finalSudoku[index].splice(7, 0, [])  
+}
+finalSudoku.splice(3, 0, [])
+finalSudoku.splice(7, 0, [])
+
+for (let j = 3; j < 8; j+=4) {
+    for (let index = 0; index <= 10; index++) {       
+        finalSudoku[index][j] = "|";       
+        finalSudoku[j][index] = "-";           
+    }    
+}
+for (let j = 3; j < 8; j+=4) {
+    for (let index = 3; index < 8; index+=4) {       
+        finalSudoku[index][j] = "+";                
+    }    
+}
+
+solution(finalSudoku)
+for (let index = 0; index < finalSudoku.length; index++) {
+console.log (finalSudoku[index].join(' '));
+
+}
