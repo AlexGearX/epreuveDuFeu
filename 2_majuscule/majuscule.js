@@ -3,8 +3,7 @@ var chars = readline.question("Entrez une phrase: ").split('');
 var temp = 0;
 
 for (var index = 0; index < chars.length; index++) {
-    if (chars[index] == !(' ')) {
-    } else {
+    if (chars[index] !== (" ")) {
         if (temp % 2 == 0 ) {
             chars[index] = chars[index].toLowerCase()
             temp += 1
@@ -12,6 +11,7 @@ for (var index = 0; index < chars.length; index++) {
             chars[index] = chars[index].toUpperCase() 
             temp += 1
         } 
+
     }
 }
     console.log (chars.join(''));
