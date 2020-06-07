@@ -21,10 +21,9 @@ function solution(sudoku){
 
     var alreadyExist = {}
     var nbObject = []
-    var empty = 20
     var tmp = 0
 
-    while (empty && tmp < 20) {
+    while (tmp < 20) {
         empty = 0;
         for (var line = 0; line < sudoku.length; line++) {
             for (var column = 0; column < sudoku.length; column++) {
@@ -55,8 +54,6 @@ function solution(sudoku){
                                     sudoku[line][column] = i;
                             }                               
                         }
-                    }else{
-                        empty += 1;
                     }
                 }
             }        
