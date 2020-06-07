@@ -24,7 +24,6 @@ function solution(sudoku){
     var tmp = 0
 
     while (tmp < 20) {
-        empty = 0;
         for (var line = 0; line < sudoku.length; line++) {
             for (var column = 0; column < sudoku.length; column++) {
                 if (sudoku[line][column] === 0) {
